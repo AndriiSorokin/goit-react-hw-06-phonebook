@@ -1,4 +1,4 @@
-import { ADD, FILTER, DELETE } from '../types/userTypes';
+import { ADD, DELETE, CHANGE_FILTER } from '../types/userTypes';
 import { combineReducers } from 'redux';
 
 const items = (state = [], { type, payload }) => {
@@ -12,8 +12,13 @@ const items = (state = [], { type, payload }) => {
   }
 };
 
-const filter = (state = '', action) => {
-  return state;
+const filter = (state = '', { type, payload }) => {
+  switch (type) {
+    case CHANGE_FILTER:
+      return payload;
+    default:
+      return state;
+  }
 };
 
 export default combineReducers({

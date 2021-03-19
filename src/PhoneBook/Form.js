@@ -17,18 +17,14 @@ class Form extends Component {
   };
 
   submitHandler = e => {
+    const name = this.state;
     e.preventDefault();
-    // const singleContact = {
-    //   name: this.state.name,
-    //   phone: this.state.phone,
-    //   id: uuidv4(),
-    // };
-    // this.props.addToList(singleContact);
-    // this.reset();
-    // console.log(singleContact);
-    this.props.onSubmit(this.state);
-    this.reset();
-    // console.log(singleContact);
+    if (this.props.contacts.every(contact => !contact.name.includes(name))) {
+      this.props.onSubmit(this.state);
+      this.reset();
+    } else {
+      alert(`${name} is alredy contact!`);
+    }
   };
 
   reset = () => {
@@ -64,7 +60,11 @@ class Form extends Component {
   }
 }
 
+const mapStatetoProps = state => ({
+  contacts: state.contacts.items,
+});
+
 const mapDispatchToProps = dispatch => ({
   onSubmit: payload => dispatch(addToList(payload)),
 });
-export default connect(null, mapDispatchToProps)(Form);
+export default connect(mapStatetoProps, mapDispatchToProps)(Form);

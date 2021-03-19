@@ -1,4 +1,4 @@
-import { ADD, DELETE, CHANGE_FILTER, FILTER } from '../types/userTypes';
+import { ADD, DELETE, CHANGE_FILTER } from '../types/userTypes';
 import { v4 as uuidv4 } from 'uuid';
 
 export const addToList = ({ name, phone }) => ({
@@ -15,3 +15,7 @@ export const deleteUser = id => ({
   payload: id,
 });
 
+export const changeFilter = value => ({
+  type: CHANGE_FILTER,
+  payload: value,
+});

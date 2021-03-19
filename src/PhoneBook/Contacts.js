@@ -5,7 +5,6 @@ import { deleteUser } from '../redux/actions/user-action';
 import style from '../PhoneBook/PhoneBook.module.css';
 
 const Contacts = ({ contacts, deleteContact }) => {
-  // const Contacts = ({ contacts, deleteContact }) => {
   console.log(contacts);
   return (
     <div>
@@ -34,8 +33,13 @@ Contacts.propTypes = {
   deleteContact: PropTypes.func.isRequired,
 };
 
-const mapStatetoProps = state => ({
-  contacts: state.contacts.items,
+const getVisibleUser = (contacts, filter) => {
+  const normalizeFilter = filter.toLowerCase();
+  return contacts.filter(contact => contact.name.toLowerCase().includes(normalizeFilter));
+};
+
+const mapStatetoProps = ({ contacts: { items, filter } }) => ({
+  contacts: getVisibleUser(items, filter),
 });
 
 const mapDispatchToProps = dispatch => ({
