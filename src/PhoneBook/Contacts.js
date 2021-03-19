@@ -5,7 +5,6 @@ import { deleteUser } from '../redux/actions/user-action';
 import style from '../PhoneBook/PhoneBook.module.css';
 
 const Contacts = ({ contacts, deleteContact }) => {
-  console.log(contacts);
   return (
     <div>
       <ul>

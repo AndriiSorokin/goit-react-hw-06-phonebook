@@ -17,13 +17,18 @@ class Form extends Component {
   };
 
   submitHandler = e => {
-    const name = this.state;
     e.preventDefault();
-    if (this.props.contacts.every(contact => !contact.name.includes(name))) {
+    const { name } = this.state;
+    const { contacts } = this.props;
+
+    if (contacts.find(contact => contact.name === name)) {
+      alert(`${name} is alredy contact!`);
+
+      this.reset();
+      return;
+    } else {
       this.props.onSubmit(this.state);
       this.reset();
-    } else {
-      alert(`${name} is alredy contact!`);
     }
   };
 
