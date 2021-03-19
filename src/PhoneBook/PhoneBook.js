@@ -1,24 +1,24 @@
-import React, { Component } from "react";
-import Form from "./Form";
-import Contacts from "./Contacts";
-import Filter from "./Filter";
-import style from "../PhoneBook/PhoneBook.module.css";
+import React, { Component } from 'react';
+import Form from './Form';
+import Contacts from './Contacts';
+import Filter from './Filter';
+import style from '../PhoneBook/PhoneBook.module.css';
 
 class PhoneBook extends Component {
   state = {
     contacts: [],
-    name: "",
-    filter: "",
+    name: '',
+    filter: '',
   };
 
   componentDidUpdate(preveProps, prevState) {
     if (this.state.contacts !== prevState.contacts) {
-      localStorage.setItem("contact", JSON.stringify(this.state.contacts));
+      localStorage.setItem('contact', JSON.stringify(this.state.contacts));
     }
   }
 
   componentDidMount() {
-    const contact = localStorage.getItem("contact");
+    const contact = localStorage.getItem('contact');
     const parseContact = JSON.parse(contact);
 
     if (parseContact) {
@@ -26,31 +26,31 @@ class PhoneBook extends Component {
     }
   }
 
-  addToList = (contact) => {
+  addToList = contact => {
     const { name } = contact;
-    if (this.state.contacts.every((contact) => !contact.name.includes(name))) {
-      this.setState((prev) => ({ contacts: [...prev.contacts, contact] }));
+    if (this.state.contacts.every(contact => !contact.name.includes(name))) {
+      this.setState(prev => ({ contacts: [...prev.contacts, contact] }));
     } else {
       alert(`${name} is alredy contact!`);
     }
   };
 
-  changeFilter = (filter) => {
+  changeFilter = filter => {
     this.setState({ filter });
   };
 
   filterUser = () => {
     const { contacts, filter } = this.state;
-    return contacts.filter((contact) => contact.name.toLowerCase().includes(filter.toLowerCase()));
+    return contacts.filter(contact => contact.name.toLowerCase().includes(filter.toLowerCase()));
   };
 
-  deleteUser = (id) => {
-    this.setState((prevState) => {
-      return {
-        contacts: prevState.contacts.filter((contact) => contact.id !== id),
-      };
-    });
-  };
+  // deleteUser = id => {
+  //   this.setState(prevState => {
+  //     return {
+  //       contacts: prevState.contacts.filter(contact => contact.id !== id),
+  //     };
+  //   });
+  // };
 
   render() {
     const { filter, contacts } = this.state;
@@ -58,9 +58,11 @@ class PhoneBook extends Component {
     return (
       <div className={style.container}>
         <h1>PhoneBook</h1>
-        <Form addToList={this.addToList} />
-        {contacts.length > 2 ? <Filter value={filter} onChangeFilter={this.changeFilter} /> : ""}
-        <Contacts contacts={visibleUser} deleteContact={this.deleteUser} />
+        {/* <Form addToList={this.addToList} /> */}
+        <Form />
+        {contacts.length > 2 ? <Filter value={filter} onChangeFilter={this.changeFilter} /> : ''}
+        {/* <Contacts contacts={visibleUser} deleteContact={this.deleteUser} /> */}
+        <Contacts />
       </div>
     );
   }

@@ -1,8 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { deleteUser } from '../redux/actions/user-action';
 import style from '../PhoneBook/PhoneBook.module.css';
 
 const Contacts = ({ contacts, deleteContact }) => {
+  // const Contacts = ({ contacts, deleteContact }) => {
   console.log(contacts);
   return (
     <div>
@@ -31,4 +34,11 @@ Contacts.propTypes = {
   deleteContact: PropTypes.func.isRequired,
 };
 
-export default Contacts;
+const mapStatetoProps = state => ({
+  contacts: state.contacts.items,
+});
+
+const mapDispatchToProps = dispatch => ({
+  deleteContact: id => dispatch(deleteUser(id)),
+});
+export default connect(mapStatetoProps, mapDispatchToProps)(Contacts);

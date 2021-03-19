@@ -1,11 +1,12 @@
-import React, { Component } from "react";
-import { v4 as uuidv4 } from "uuid";
-import style from "../PhoneBook/PhoneBook.module.css";
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { addToList } from '../redux/actions/user-action';
+import style from '../PhoneBook/PhoneBook.module.css';
 
 class Form extends Component {
   state = {
-    name: "",
-    phone: "",
+    name: '',
+    phone: '',
   };
 
   inputHandler = ({ target }) => {
@@ -15,22 +16,25 @@ class Form extends Component {
     });
   };
 
-  submitHandler = (e) => {
+  submitHandler = e => {
     e.preventDefault();
-    const singleContact = {
-      name: this.state.name,
-      phone: this.state.phone,
-      id: uuidv4(),
-    };
-    this.props.addToList(singleContact);
+    // const singleContact = {
+    //   name: this.state.name,
+    //   phone: this.state.phone,
+    //   id: uuidv4(),
+    // };
+    // this.props.addToList(singleContact);
+    // this.reset();
+    // console.log(singleContact);
+    this.props.onSubmit(this.state);
     this.reset();
-    console.log(singleContact);
+    // console.log(singleContact);
   };
 
   reset = () => {
     this.setState({
-      name: "",
-      phone: "",
+      name: '',
+      phone: '',
     });
   };
 
@@ -38,8 +42,20 @@ class Form extends Component {
     const { name, phone } = this.state;
     return (
       <form className={style.form} onSubmit={this.submitHandler} autoComplete="off">
-        <input onChange={this.inputHandler} placeholder="Enter name" type="text" name="name" value={name}></input>
-        <input onChange={this.inputHandler} placeholder="Enter phone" type="text" name="phone" value={phone}></input>
+        <input
+          onChange={this.inputHandler}
+          placeholder="Enter name"
+          type="text"
+          name="name"
+          value={name}
+        ></input>
+        <input
+          onChange={this.inputHandler}
+          placeholder="Enter phone"
+          type="text"
+          name="phone"
+          value={phone}
+        ></input>
         <button className={style.btn} type="submit">
           Add contacts
         </button>
@@ -48,4 +64,7 @@ class Form extends Component {
   }
 }
 
-export default Form;
+const mapDispatchToProps = dispatch => ({
+  onSubmit: payload => dispatch(addToList(payload)),
+});
+export default connect(null, mapDispatchToProps)(Form);
