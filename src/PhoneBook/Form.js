@@ -23,7 +23,6 @@ class Form extends Component {
 
     if (contacts.find(contact => contact.name === name)) {
       alert(`${name} is alredy contact!`);
-
       this.reset();
       return;
     } else {
