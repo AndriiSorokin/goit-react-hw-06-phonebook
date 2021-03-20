@@ -1,13 +1,14 @@
-import { combineReducers } from 'redux';
+import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import userReducer from './reducers/userReducer';
-import { configureStore } from '@reduxjs/toolkit';
+import logger from 'redux-logger';
 
-const rootReducer = combineReducers({
-  contacts: userReducer,
-});
-
+const middleware = [...getDefaultMiddleware(), logger];
 const store = configureStore({
-  reducer: rootReducer,
+  reducer: {
+    contacts: userReducer,
+  },
+  middleware,
+  devTools: process.env.NODE_ENV === 'development',
 });
 
 export default store;
