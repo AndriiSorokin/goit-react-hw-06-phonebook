@@ -22,13 +22,14 @@ const middleware = [
   logger,
 ];
 
-const persistConfig = {
+const contactPersistConfig = {
   key: 'contacts',
   storage,
+  blacklist: ['filter'],
 };
 const store = configureStore({
   reducer: {
-    contacts: persistReducer(persistConfig, userReducer),
+    contacts: persistReducer(contactPersistConfig, userReducer),
   },
   middleware,
   devTools: process.env.NODE_ENV === 'development',
