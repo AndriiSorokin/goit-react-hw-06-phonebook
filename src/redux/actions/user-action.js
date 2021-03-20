@@ -2,15 +2,13 @@ import { ADD, DELETE, CHANGE_FILTER } from '../types/userTypes';
 import { createAction } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
 
-export const addToList = createAction(ADD, ({ name, phone }) => {
-  return {
-    payload: {
-      name,
-      phone,
-      id: uuidv4(),
-    },
-  };
-});
+export const addToList = createAction(ADD, ({ name, phone }) => ({
+  payload: {
+    name,
+    phone,
+    id: uuidv4(),
+  },
+}));
 // export const addToList = ({ name, phone }) => ({
 //   type: ADD,
 //   payload: {
