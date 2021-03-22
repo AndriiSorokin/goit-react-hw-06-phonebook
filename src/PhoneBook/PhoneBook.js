@@ -10,19 +10,6 @@ class PhoneBook extends Component {
     contacts: [],
   };
 
-  componentDidUpdate(preveProps, prevState) {
-    if (this.state.contacts !== prevState.contacts) {
-      localStorage.setItem('contact', JSON.stringify(this.state.contacts));
-    }
-  }
-
-  componentDidMount() {
-    const contact = localStorage.getItem('contact');
-    const parseContact = JSON.parse(contact);
-    if (parseContact) {
-      this.setState({ contacts: parseContact });
-    }
-  }
   render() {
     const contact = this.props;
     console.log(contact);
@@ -30,7 +17,7 @@ class PhoneBook extends Component {
       <div className={style.container}>
         <h1>PhoneBook</h1>
         <Form />
-        {contact.contact.length > 2 ? <Filter /> : ''}
+        {contact.contact.length > 2 && <Filter />}
         <Contacts />
       </div>
     );

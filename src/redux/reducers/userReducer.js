@@ -1,10 +1,10 @@
-import { ADD, DELETE, CHANGE_FILTER } from '../types/userTypes';
+import { ADD_CONTACT, DELETE_CONTACT, CHANGE_FILTER } from '../types/userTypes';
 import { combineReducers } from 'redux';
 import { createReducer } from '@reduxjs/toolkit';
 
 const items = createReducer([], {
-  [ADD]: (state, { payload }) => [...state, payload],
-  [DELETE]: (state, { payload }) => state.filter(({ id }) => id !== payload),
+  [ADD_CONTACT]: (state, { payload }) => [...state, payload],
+  [DELETE_CONTACT]: (state, { payload }) => state.filter(({ id }) => id !== payload),
 });
 // const items = (state = [], { type, payload }) => {
 //   switch (type) {

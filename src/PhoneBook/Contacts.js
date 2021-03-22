@@ -28,7 +28,13 @@ const Contacts = ({ contacts, deleteContact }) => {
 };
 
 Contacts.propTypes = {
-  contacts: PropTypes.array.isRequired,
+  contacts: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      name: PropTypes.string.isRequired,
+      phone: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
   deleteContact: PropTypes.func.isRequired,
 };
 
